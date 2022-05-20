@@ -1,0 +1,61 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - fan
+  - sad
+  - Start
+  - FireArea
+  - Turn
+  - TurnEnd
+  - PlayerBody
+  - Enemy
+  - Obstacle
+  - Spline1
+  - Spline2
+  - Spline3
+  - Spline
+  - ObstaclesListGo
+  - ObstacleGround
+  - RunStart
+  - RunEnd
+  - VacuumCleaner
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - Spline
+  - SplineBlind
+  - BlindToDefault
+  - BlindToAll
+  - Obstacle
+  - Hole
+  - Ragdoll
+  - Characters
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
