@@ -261,17 +261,7 @@ public class splineJump : MonoBehaviour
          GameObject throwGO = Instantiate(Throwobje, firstPos,rotationOfThrowGO, null);
 
 
-        
-        //Debug.Log(ChaAnimator.GetCurrentAnimatorClipInfoCount(1));
-        //https://answers.unity.com/questions/1035587/how-to-get-current-time-of-an-animator.html
-     //   float waitDuration = (1 - ChaAnimator.GetCurrentAnimatorStateInfo(1).normalizedTime%1) * ChaAnimator.GetCurrentAnimatorClipInfo(1)[0].clip.length;
-        //  float waitDuration = ChaAnimator.get;
-        //Debug.Log(ChaAnimator.GetCurrentAnimatorClipInfo(1)[0].clip.name);
-        //  yield return new WaitForSeconds(waitDuration);
-        //   Debug.Log( ChaAnimator.GetAnimatorTransitionInfo(1).durationUnit);
-        //  Debug.Log( waitDuration);
-
-        
+            
 
         throwGO.GetComponent<TrailRenderer>().enabled = true;
          while (timeCounter<1)
@@ -563,41 +553,7 @@ public class splineJump : MonoBehaviour
         
     }
     
-    private void OnNodePassed(List<SplineTracer.NodeConnection> passed)
-    {
-        SplineTracer.NodeConnection nodeConnection = passed[0];
-        
-        double nodePercent = (double) nodeConnection.point/ (m_SplineFollower.spline.pointCount-1);
-        double followerPercent = m_SplineFollower.UnclipPercent(m_SplineFollower.result.percent);
-        float distancePastNode = m_SplineFollower.spline.CalculateLength(nodePercent, followerPercent);
-        
-        
-        //m_SplineFollower.spline.pointCount 
-        //m_SplineProjector.spline.pointCount = b
-        //m_SplineProjector.result.percent = a
-        // a*b = index 
-        Vector3 vec3 =m_SplineProjector.spline.GetPoint((int)(m_SplineProjector.spline.pointCount * m_SplineProjector.result.percent)).position;
-        Debug.Log("asdasdasd");
-        // point noktalarından birini verir en yakın olanı 
-        
-        //m_SplineFollower.sampleCount
-        int a = m_SplineProjector.sampleCount;
-
-        double b = m_SplineProjector.result.percent;
-
-        //m_SplineProjector.spline.samples[(int) (a * b)].position;
-
-
-        //m_SplineFollower.get
-       // y_SplineBallProjector.spline=
-       /*
-        y_SplineBallProjector.gameObject.transform.position =
-            (m_SplineProjector.result.position + m_SplineProjector.result.forward * 3);
-        y_SplineBallProjector.result.position
-            */
-       
-       
-    }
+  
 
     public void SetTDestination()
     {
@@ -634,8 +590,8 @@ public class splineJump : MonoBehaviour
         float distanceSample = m_SplineProjector.spline.CalculateLength() / (lastIndex + 1);
         
         
-        y_SplineBallProjector.RebuildImmediate();     //+3*distanceSample/m_SplineProjector.spline.CalculateLength();//+(double)//distanceSample*;//*Mathf.Sign(m_SplineFollower.followSpeed)
-        _percent = y_SplineBallProjector.result.percent;     //+3*distanceSample/m_SplineProjector.spline.CalculateLength();//+(double)//distanceSample*;//*Mathf.Sign(m_SplineFollower.followSpeed)
+        y_SplineBallProjector.RebuildImmediate();     
+        _percent = y_SplineBallProjector.result.percent;    
 
         if (_percent > 1)
         {
@@ -705,34 +661,8 @@ public class splineJump : MonoBehaviour
             SetFollowFalse();
        SetAccessToGo(false);
        
-        
 
-           
-           
-           /*
-            _percent = m_SplineProjector.result.percent;
-                    //+0.2f;
-                   // m_SplineProjector.EvaluatePosition(_percent);
-            
-                   
-                  
-                        
-                      // t_destination = m_SplineFollower.result.position;
-            
-            Vector3 vec3 =m_SplineProjector.spline.GetPoint((int)(double)((m_SplineProjector.spline.pointCount * (m_SplineProjector.result.percent+0.1d)))).position;
-              //_percent = (m_SplineProjector.result.percent + 0.1d);
-          // m_SplineProjector.result.percent -= m_SplineProjector.span;
-        _percent = m_SplineProjector.result.percent+0.1; 
-       
-         m_SplineProjector.spline.GetSamplingValues(_percent,out int index_destination,out double lerrp);
-         t_destination = m_SplineProjector.spline.GetPoint(index_destination,SplineComputer.Space.Local).position;
-       //t_destination = m_SplineProjector.result.position;
-        
-        
-       //t_destination=  m_SplineProjector.Evaluate(m_SplineProjector.result.percent).position;
-        
-        // m_SplineProjector.GetSampleRaw(2).;
-           */
+     
         
         Vector3 firstPos = transform.position;
         Vector3 directionToDestionationFromfirstPos = t_destination - firstPos;
@@ -851,62 +781,13 @@ public class splineJump : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space)) {  
             ChaJumpAnimation();  
             StartCoroutine(SpaceJump());
-            //offset ekliyor belli yerler arasına pek istemiyorum bunu 
-            //m_SplineFollower.offsetModifier.AddKey(JumpAmount,m_SplineFollower.result.percent,m_SplineFollower.result.percent+0.02d);
             }
         
         
 
     }
 
-
-    /*
-    public virtual void ChangeCurrentSplineComputerMouse()
-    {
-        
-        if (Input.GetMouseButtonDown(1))
-        {
-            firstTouchPoint =  mousePosViewPoint;
-        }
-        
-        else if (Input.GetMouseButtonUp(1))
-        {
-            Vector2 directionMouseMovement=firstTouchPoint  - (Vector2) mousePosViewPoint ;
-            
-            //saga sola hareket daha yuksektir
-            if (Mathf.Abs(directionMouseMovement.x) > Mathf.Abs(directionMouseMovement.y) && _accessAccordingToAngle)
-            {
-                StartCoroutine(GoWithBeizer((int)Mathf.Sign(directionMouseMovement.x)));
-            }
-            else if(_accesAccordingToDistance)// yukari assagi hareket daha yuksektir
-            {
-                ChaJumpAnimation();  
-                StartCoroutine(SpaceJump());
-            }
-            else        // basti cekti Hareket ettirmedi pek
-            {
-                Debug.Log("basti kacti");
-            }
-            
-            
-        }
-        else if(Input.GetMouseButton(1))
-        {
-            Vector2 directionMouseMovement = firstTouchPoint  - (Vector2) mousePosViewPoint ;
-
-            directionMouseMovement.x = 50*Mathf.Clamp(directionMouseMovement.x, -0.5f, 0.5f);
-          Vector3 ustbodyRotation = (firstRotationOfUstBodyOfPlayer.eulerAngles + Vector3.forward *directionMouseMovement.x);
-            UstBodyOfPlayer.transform.localRotation =Quaternion.Lerp(UstBodyOfPlayer.transform.localRotation , Quaternion.Euler(ustbodyRotation),1);//Time.deltaTime*4
-                
-        }
-        else
-        {
-        }
-        
-        
-        
-    }
-    */
+    
     
     // Converge : Yakınsamak
     public void LocalRotationConverge()
@@ -1009,18 +890,7 @@ public class splineJump : MonoBehaviour
         m_CurrentSplineProjectorIndex =FindSplineIndexInSplineList(_splineComputer);
         m_SplineProjector.spline = m_SplineComputerList[m_CurrentSplineProjectorIndex];
         
-        // follower splinin indexsini ve spline ını yeniler
-        //////////////////////////////ThisIsCurrentSplineFollowerIndex = ThisIsCurrentSplineProjectorIndex;
         
-        // rebuild ediyor follower vve projector u
-     //////////////////   m_SplineProjector.RebuildImmediate();
-        ////////////////////m_SplineFollower.RebuildImmediate();
-         
-        //
-      /////////////////////////  m_SplineFollower.SetPercent(m_SplineProjector.result.percent);
-
-        // StartCoroutine(ElectroPlacement());
-        // SetTrueFollowForSpline();
         
         StartCoroutine(PullingRope());
 
@@ -1117,11 +987,6 @@ public class splineJump : MonoBehaviour
             timeCounter += Time.deltaTime;
             Vector3 m_positionLinePoint = Vector3.Lerp(firstPos, destinationPos, timeCounter);
                 
-                /*firstPos * Mathf.Pow((1 - timeCounter), 3) +
-                (firstPos+ Vector3.up*_jumpPower)* Mathf.Pow(1 - timeCounter, 2) * timeCounter * 3 
-                + 3 * (1 - timeCounter) * timeCounter * timeCounter * ( destinationPos + Vector3.up*_jumpPower) 
-                + timeCounter * timeCounter * timeCounter * destinationPos;
-                */
                 
             transform.position = m_positionLinePoint;    
             yield return null;
